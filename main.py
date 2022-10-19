@@ -14,18 +14,15 @@ warnings.filterwarnings("ignore")
 
 import os
 from my_parser import parser
-args = parser()
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-os.environ['TOKENIZERS_PARALLELISM'] = "false"
 
 from solverV2 import Solver as Solverv2, SolverDouble
 
-import pretty_errors
-
 
 def main():
-    # args = parser()
-    # os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+    args = parser()
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+    os.environ['TOKENIZERS_PARALLELISM'] = "false"
+
     if args.net in ['led', 'ledv2']:
         solver = Solverv2(args)
     elif args.net == 'ledr2':
