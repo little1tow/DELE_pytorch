@@ -11,7 +11,7 @@ import pprint
 
 def parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--name', default="LED")
+    parser.add_argument('--name', default="DELE")
 
     parser.add_argument('--net', type=str, default='led')
     parser.add_argument('--data_name', type=str, default='snli')
@@ -20,7 +20,7 @@ def parser():
     parser.add_argument('--cache_dir', type=str, default='/data/pretrained_models')
 
     parser.add_argument('--seed', type=int, default=2022)
-    parser.add_argument('--cl_loss', type=str, default='default', help='default, em')
+    parser.add_argument('--cl_loss', type=str, default='default', help='default')
 
     parser.add_argument('--num_bert_layers', type=int, default=12)
     parser.add_argument('--in_features', type=int, default=768)

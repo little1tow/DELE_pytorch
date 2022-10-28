@@ -2,7 +2,7 @@
 @Author: zhkun
 @Time:  16:22
 @File: baselines
-@Description:
+@Description: baseline file
 @Something to attention
 """
 import torch
@@ -160,8 +160,6 @@ class Baseline:
     def train(self):
         print('Starting Traing....')
         best_loss = float('inf')
-        best_test_loss = float('inf')
-        best_test_acc = 0.
         best_acc = 0.
 
         self.big_epochs = len(self.train_loader.dataset) // self.args.batch_size
@@ -192,9 +190,6 @@ class Baseline:
                     best_loss = dev_loss
                     best_acc = dev_acc
                     self.save_model('dev')
-
-            if self.dev_loader is None:
-                self.dev_loader = self.test_loader
 
             test_log = f'------------------{datetime.datetime.now()}----------------------------\t' \
                        f'Epoch:{epoch}\t' \

@@ -2,7 +2,7 @@
 @Author: zhkun
 @Time:  16:05
 @File: other_dataset
-@Description: 用于处理MSRP，以及情感分类任务的数据集
+@Description: other datasets process and load file
 @Something to attention
 """
 import os
