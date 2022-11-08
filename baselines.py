@@ -2,7 +2,7 @@
 @Author: zhkun
 @Time:  16:22
 @File: baselines
-@Description:
+@Description: baseline file
 @Something to attention
 """
 import torch
@@ -190,9 +190,6 @@ class Baseline:
                     best_loss = dev_loss
                     best_acc = dev_acc
                     self.save_model('dev')
-
-            if self.dev_loader is None:
-                self.dev_loader = self.test_loader
 
             test_log = f'------------------{datetime.datetime.now()}----------------------------\t' \
                        f'Epoch:{epoch}\t' \

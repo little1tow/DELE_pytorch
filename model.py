@@ -30,8 +30,6 @@ class LED(nn.Module):
                                               output_attentions=False)
 
         if config.use_desp and config.desp_seperate:
-            # self.desp_bert = AutoModel.from_pretrained(config.pre_trained_model, output_hidden_states=True,
-            #                                       output_attentions=False)
             self.desp_bert = AutoModel.from_pretrained(config.pre_trained_model,
                                                        cache_dir=config.cache_dir,
                                                        output_hidden_states=True,
@@ -105,7 +103,6 @@ class LED(nn.Module):
             self.pred_layer = nn.Sequential(
                 nn.Linear(in_features=predict_in_features, out_features=config.mlp_size),
                 nn.Tanh(),
-                # nn.ReLU(),
                 nn.Linear(in_features=config.mlp_size, out_features=config.num_classes)
             )
 
@@ -116,31 +113,20 @@ class LED(nn.Module):
                 self.pred_r2 = nn.Sequential(
                     nn.Linear(in_features=predict_in_features*4, out_features=config.mlp_size*2),
                     nn.Tanh(),
-                    # nn.ReLU(),
                     nn.Linear(in_features=config.mlp_size*2, out_features=2)
                 )
         self.dropout = nn.Dropout(p=config.dropout)
 
-        # not only for display, but also collect different parameters that needs updating
         for param in self.bert.parameters():
             param.requires_grad = False
 
-        self.req_grad_params = self.get_req_grad_params(debug=True)
+        self.req_grad_params = self.get_req_grad_params(debug=False)
 
         if config.train_bert:
             for param in self.bert.parameters():
                 param.requires_grad = True
 
-    def init_linears(self):
-        nn.init.uniform_(self.w_e)
-        nn.init.xavier_uniform_(self.w_s.weight)
-        nn.init.xavier_uniform_(self.w_t.weight)
-        nn.init.xavier_uniform_(self.w_m.weight)
-        nn.init.xavier_uniform_(self.fc.weight)
-        nn.init.zeros_(self.fc.bias)
-
     def forward(self, sentence_pairs, all_labels, label_desp, is_train=True):
-
         if len(sentence_pairs) == 3:
             token_ids = sentence_pairs[0]
             segment_ids = sentence_pairs[1]
@@ -353,19 +339,11 @@ class Base_model(nn.Module):
         for param in self.bert.parameters():
             param.requires_grad = False
 
-        self.req_grad_params = self.get_req_grad_params(debug=True)
+        self.req_grad_params = self.get_req_grad_params(debug=False)
 
         if config.train_bert:
             for param in self.bert.parameters():
                 param.requires_grad = True
-
-    def init_linears(self):
-        nn.init.uniform_(self.w_e)
-        nn.init.xavier_uniform_(self.w_s.weight)
-        nn.init.xavier_uniform_(self.w_t.weight)
-        nn.init.xavier_uniform_(self.w_m.weight)
-        nn.init.xavier_uniform_(self.fc.weight)
-        nn.init.zeros_(self.fc.bias)
 
     def forward(self, sentence_pairs, is_train=True):
 
@@ -511,19 +489,11 @@ class LEDv2(nn.Module):
         for param in self.bert.parameters():
             param.requires_grad = False
 
-        self.req_grad_params = self.get_req_grad_params(debug=True)
+        self.req_grad_params = self.get_req_grad_params(debug=False)
 
         if config.train_bert:
             for param in self.bert.parameters():
                 param.requires_grad = True
-
-    def init_linears(self):
-        nn.init.uniform_(self.w_e)
-        nn.init.xavier_uniform_(self.w_s.weight)
-        nn.init.xavier_uniform_(self.w_t.weight)
-        nn.init.xavier_uniform_(self.w_m.weight)
-        nn.init.xavier_uniform_(self.fc.weight)
-        nn.init.zeros_(self.fc.bias)
 
     def single_process(self, sentence_pairs, all_labels, is_train=True):
         if len(sentence_pairs) == 3:
@@ -590,7 +560,7 @@ class LEDv2(nn.Module):
 
         return predict, z, sentence_semantic
 
-    def forward(self, sentence_pairs, all_labels, label_desp, is_train=True):
+    def forward(self, sentence_pairs, all_labels):
 
         predict1, z1, sentence_semantic1 = self.single_process(sentence_pairs, all_labels)
         predict2, z2, sentence_semantic2 = self.single_process(sentence_pairs, all_labels)

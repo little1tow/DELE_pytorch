@@ -172,7 +172,7 @@ class Solver:
         )
 
         for epoch in range(1, self.args.epochs + 1):
-            epoch_start_time = time.time()
+            # epoch_start_time = time.time()
             print('-' * 20 + 'Epoch: {}, {}'.format(epoch, get_current_time()) + '-' * 20)
             if epoch != 1:
                 write_file(os.path.join(self.args.log_path, f'testing_log_{self.args.name}'), self.testing_log)
@@ -190,9 +190,6 @@ class Solver:
                     best_loss = dev_loss
                     best_acc = dev_acc
                     self.save_model('dev')
-
-            if self.dev_loader is None:
-                self.dev_loader = self.test_loader
 
             test_log = f'------------------{datetime.datetime.now()}----------------------------\t' \
                        f'Epoch:{epoch}\t' \
@@ -628,7 +625,7 @@ class SolverDouble:
         )
 
         for epoch in range(1, self.args.epochs + 1):
-            epoch_start_time = time.time()
+            # epoch_start_time = time.time()
             print('-' * 20 + 'Epoch: {}, {}'.format(epoch, get_current_time()) + '-' * 20)
             if epoch != 1:
                 write_file(os.path.join(self.args.log_path, f'testing_log_{self.args.name}'), self.testing_log)
@@ -646,9 +643,6 @@ class SolverDouble:
                     best_loss = dev_loss
                     best_acc = dev_acc
                     self.save_model('dev')
-
-            if self.dev_loader is None:
-                self.dev_loader = self.test_loader
 
             test_log = f'------------------{datetime.datetime.now()}----------------------------\t' \
                        f'Epoch:{epoch}\t' \

@@ -2,7 +2,7 @@
 @Author: zhkun
 @Time:  16:27
 @File: dataset
-@Description: 数据集文件
+@Description: dataser prepare and load file
 @Something to attention
 """
 import os
