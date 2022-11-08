@@ -160,13 +160,11 @@ class Baseline:
     def train(self):
         print('Starting Traing....')
         best_loss = float('inf')
-        best_test_loss = float('inf')
-        best_test_acc = 0.
         best_acc = 0.
 
         self.big_epochs = len(self.train_loader.dataset) // self.args.batch_size
 
-        self.learning_scheduler = ph.optim.lr_scheduler.CosineWarmUpAnnealingLR(
+        self.learning_scheduler = ph.optim.lr_scheduler.CosineWarmUpDecay(
             optimizer=self.optimizer,
             num_loops=self.args.epochs * self.big_epochs,
             min_factor=1e-8,

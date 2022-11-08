@@ -2,14 +2,7 @@
 @Author: zhkun
 @Time:  17:20
 @File: solverV2
-@Description: 使用了全新的数据读取方式
-@Something to attention
-"""
-"""
-@Author: zhkun
-@Time:  16:27
-@File: solver
-@Description:
+@Description: overall learing process of the model
 @Something to attention
 """
 import torch
@@ -414,7 +407,6 @@ class Solver:
         matrix_cal = BiClassCalculator()
         with torch.no_grad():
             for batch_idx, (input_sentences, y) in enumerate(loader):
-                # input_info = [token_ids, [segment_ids], attention_mask]
                 if len(input_sentences) == 5:
                     pairs_info = [input_sentences[0], input_sentences[1]]
                     desps_info = [input_sentences[2], input_sentences[3]]
@@ -625,8 +617,6 @@ class SolverDouble:
     def train(self):
         print('Starting Traing....')
         best_loss = float('inf')
-        best_test_loss = float('inf')
-        best_test_acc = 0.
         best_acc = 0.
 
         self.big_epochs = len(self.train_loader.dataset) // self.args.batch_size
