@@ -1,7 +1,7 @@
 # DELE_pytorch
 This is the official implementation of the TNNLS2022 work "Description-Enhanced Label Embedding Contrastive Learning for Text Classification"
 
-## Requirment
+## Requirement
     1. pytorch >= 1.7.1
     2. photinia
     3. Transformer
